@@ -36,8 +36,9 @@ const Tab = (($) => {
   const ClassName = {
     DROPDOWN_MENU : 'dropdown-menu',
     ACTIVE        : 'active',
+    DISABLED      : 'disabled',
     FADE          : 'fade',
-    IN            : 'in'
+    SHOW          : 'show'
   }
 
   const Selector = {
@@ -79,7 +80,8 @@ const Tab = (($) => {
     show() {
       if (this._element.parentNode &&
           this._element.parentNode.nodeType === Node.ELEMENT_NODE &&
-          $(this._element).hasClass(ClassName.ACTIVE)) {
+          $(this._element).hasClass(ClassName.ACTIVE) ||
+          $(this._element).hasClass(ClassName.DISABLED)) {
         return
       }
 
@@ -173,7 +175,7 @@ const Tab = (($) => {
       }
 
       if (active) {
-        $(active).removeClass(ClassName.IN)
+        $(active).removeClass(ClassName.SHOW)
       }
     }
 
@@ -197,7 +199,7 @@ const Tab = (($) => {
 
       if (isTransitioning) {
         Util.reflow(element)
-        $(element).addClass(ClassName.IN)
+        $(element).addClass(ClassName.SHOW)
       } else {
         $(element).removeClass(ClassName.FADE)
       }
